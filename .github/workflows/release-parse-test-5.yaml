@@ -38,7 +38,7 @@ jobs:
     - name: Maven release
       uses: qcastel/github-actions-maven-release@v1.0.3
       with:
-        release-branch-name: "master"
+        release-branch-name: ${{ steps.branch_name.outputs.SOURCE_TAG }}
 
         gpg-enabled: "true"
         gpg-key-id: ${{ secrets.HDES_GPG_KEY_ID }}
