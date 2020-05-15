@@ -1,19 +1,22 @@
 on:
-  release:
-    types:
-      - created
-name: Maven Release
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
+name: Maven Release
 jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-    - name: Maven release
-      uses: qcastel/github-actions-maven-release@v1.0.3
+    - name: Extract tag name
+      id: tag
+      uses: actions/github-script@0.2.0
       with:
-        release-branch-name: "master"
-        gpg-enabled: "true"
-        gpg-key-id: ${{ secrets.GITHUB_GPG_KEY_ID }}
-        gpg-key: ${{ secrets.GITHUB_GPG_KEY }}
-        access-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          return context.payload.ref.replace(/\/refs\/tags\//, '');
+    - name: Echo
+      run: echo ${{ steps.tag.outputs.result }}
+      
