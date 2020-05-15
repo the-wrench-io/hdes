@@ -47,7 +47,7 @@ jobs:
         maven-repo-server-id: ${{ secrets.MVN_REPO_ID }}
         maven-repo-server-username: ${{ secrets.MVN_REPO_USR }}
         maven-repo-server-password: ${{ secrets.MVN_REPO_SEC }}
-        maven-args: "-DreleaseVersion=${{ steps.branch_name.outputs.SOURCE_VER }} -DdevelopmentVersion=999-SNAPSHOT"
+        maven-args: "-Phdes-release -DreleaseVersion=${{ steps.branch_name.outputs.SOURCE_VER }} -DdevelopmentVersion=999-SNAPSHOT"
 
         git-release-bot-name: "release-bot"
         git-release-bot-email: "olev.mutso@resys.io"
